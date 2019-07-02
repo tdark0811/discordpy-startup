@@ -20,23 +20,23 @@ import discord
 client = discord.Client()
 
 @client.event
-async def on_message(message):
+async def on(message):
     """メンバー募集 (.rect@数字)"""
     if message.content.startswith(".rect"):
-        mcount = int(message.content[6:len(message.content)])
+        mcount = int(content[6:len(content)])
         text= "あと{}人 募集中\n"
         revmsg = text.format(mcount)
         #friend_list 押した人のList
         frelist = []
-        msg = await client.send_message(message.channel, revmsg)
+        msg = await client.send(channel, revmsg)
 
         #投票の欄
-        await client.add_reaction(msg, '\u21a9')
-        await client.add_reaction(msg, '⏫')
-        await client.pin_message(msg)
+        await client.add('\u21a9')
+        await client.add('⏫')
+        await client.pin(msg)
 
         #リアクションをチェックする
-        while len(frelist) < int(message.content[6:len(message.content)]):
+        while len(frelist) < int(content[6:len(content)]):
             target_reaction = await client.wait_for_reaction(message=msg)
             #発言したユーザが同一でない場合 真
             if target_reaction.user != msg.author:
@@ -49,7 +49,7 @@ async def on_message(message):
                         frelist.remove(target_reaction.user.name)
                         mcount += 1
                         #リストから名前削除
-                        await client.edit_message(msg, text.format(mcount) +
+                        await client.edit(text.format(mcount) +
                                                         '\n'.join(frelist))
                             #メッセージを書き換え
 
@@ -65,19 +65,19 @@ async def on_message(message):
                         frelist.append(target_reaction.user.name)
                         #リストに名前追加
                         mcount = mcount - 1
-                        await client.edit_message(msg, text.format(mcount) +
+                        await client.edit(text.format(mcount) +
                                                         '\n'.join(frelist))
 
 
                 elif target_reaction.reaction.emoji == '✖':
-                        await client.edit_message(msg, '募集終了\n'+ '\n'.join(frelist))
-                        await client.unpin_message(msg)
+                        await client.edit('募集終了\n'+ '\n'.join(frelist))
+                        await client.unpin(msg)
                         break
-                await client.remove_reaction(msg, target_reaction.reaction.emoji, target_reaction.user)
+                await client.remove(target_reaction.reaction.emoji, target_reaction.user)
                 #ユーザーがつけたリアクションを消す※権限によってはエラー
                 #==============================================================
         else:
-            await client.edit_message(msg, '募集終了\n'+ '\n'.join(frelist))
+            await client.edit('募集終了\n'+ '\n'.join(frelist))
 
 
 
