@@ -15,9 +15,6 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     await ctx.send('pong')
 
-
-bot.run(token)
-
 import discord
 
 client = discord.Client()
@@ -85,3 +82,5 @@ async def on_message(message):
 
 
 client.run("NTk1NjQ5NjU2OTExMDM2NDE2.XRuEYQ.XQ5u8CZp5pyS0CVTfa6nb6V9P6E")
+
+bot.run(token)
