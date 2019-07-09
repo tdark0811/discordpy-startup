@@ -80,6 +80,7 @@ async def rect(ctx, about = "募集", cnt = 4, settime = 10.0):
         # リアクション消す。メッセージ管理権限がないとForbidden:エラーが出ます。
         await msg.remove_reaction(str(reaction.emoji), user)
 
+        
 client.run("NTk1NjQ5NjU2OTExMDM2NDE2.XRuEYQ.XQ5u8CZp5pyS0CVTfa6nb6V9P6E")
 
 bot.run(token)
