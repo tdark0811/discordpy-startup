@@ -1,8 +1,7 @@
 import discord
-from discord.ext import commands
-import asyncio
 
-client = commands.Bot(command_prefix='.')
+client = discord.Client()
+
 @client.event
 async def on_ready():
     print('Logged in as')
